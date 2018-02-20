@@ -1,0 +1,30 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background: #000;
+    color: #fff;
+}
+
+.wapper {
+    width: 1200px;
+    margin: auto;
+	margin-top: 50px;
+	padding: 50px;
+	background: #fff;
+	color: #000;
+	text-align: center;
+	h2{
+		font-size: 35px;
+		padding-bottom: 10px;
+	}
+	p{
+		font-size: 20px;
+	}
+    img{
+    	width: 100%;
+    	margin-top: 20px;
+    }
+}

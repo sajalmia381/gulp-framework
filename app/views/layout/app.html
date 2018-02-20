@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <!-- Title -->
+    <title>{{ title }}</title>
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon.png">
+
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/public/libs/bootstrap/dist/css/bootstrap.min.css">
+    <!-- endinject -->
+    
+    <link rel="stylesheet" href="css/style.css">
+     {% block header %} {% endblock %}
+</head>
+
+<body>
+    <div class="wapper">
+        {% block content %} {% endblock %}
+    </div>
+    <!-- inject:js -->
+    <script src="/public/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/public/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- endinject -->
+    <script src="js/custom.js"></script>
+    {% block footer %} {% endblock %}
+</body>
+
+</html>
