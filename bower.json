@@ -1,22 +1,39 @@
 {
-  "name": "framework-bower",
-  "description": "",
-  "main": "index.js",
-  "authors": [
-    "MD. SAJAL MIA"
-  ],
-  "license": "MIT",
-  "homepage": "",
-  "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "jquery": "1.12.4",
-    "bootstrap": "^4.0.0"
-  }
+    "name": "framework-bower",
+    "description": "",
+    "main": "index.js",
+    "authors": [
+        "MD. SAJAL MIA"
+    ],
+    "license": "MIT",
+    "homepage": "",
+    "private": true,
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies":
+    {
+        "jquery": "1.12.4",
+        "bootstrap": "^4.0.0"
+    },
+    "overrides":
+    {
+        "jquery":
+        {
+            "main": [
+                "dist/jquery.min.js"
+            ]
+        },
+        "bootstrap":
+        {
+            "main": [
+                "./dist/js/bootstrap.min.js",
+                "./dist/css/bootstrap.min.css"
+            ]
+        }
+    }
 }

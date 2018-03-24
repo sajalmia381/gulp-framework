@@ -5,27 +5,36 @@ var gulp = require('gulp'),
     autoprefixer = require('gulp-autoprefixer'),
     sourcemaps = require('gulp-sourcemaps'),
     plumber = require('gulp-plumber'),
-    concat = require('gulp-concat'),
-    rename = require('gulp-rename');
+    concat = require('gulp-concat');
 // Images
 var imagemin = require('gulp-imagemin'),
-	imageminPngquant = require('imagemin-pngquant'),
-	imageminJpegRecompress = require('imagemin-jpeg-recompress');
+    imageminPngquant = require('imagemin-pngquant'),
+    imageminJpegRecompress = require('imagemin-jpeg-recompress');
 // HTML
 var nunjucks = require('gulp-nunjucks'), 
-    inject = require('gulp-inject');
+    inject = require('gulp-inject'),
+    pug = require('gulp-pug'),
+    htmlBeautify = require('gulp-html-beautify');
+
 // Bower files
 var mainBowerFiles = require('gulp-main-bower-files');
 // delete
 var del = require('del');
 
 // ===================================== Files Directory
-var PUBLIC_PATH 	= 'public',
-	SCRIPTS_PATH 	= 'app/js/*.js',
-	SCSS_PATH 		= 'app/scss/*.scss',
-	IMAGES_PATH 	= 'app/images/**/*.{png,jpeg,jpg,gif,svg}',
-	VIEWS_PATH		= 'app/views/*.html',
-    BOWER_PATH      = './bower.json';
+var PUBLIC_PATH     = 'public',
+    SCRIPTS_PATH    = 'app/js/*.js',
+    SCSS_PATH       = 'app/scss/*.scss',
+    IMAGES_PATH     = 'app/images/**/*.{png,jpeg,jpg,gif,svg}',
+    VIEWS_PATH      = 'app/views/**/*.html',
+    BOWER_PATH      = './bower.json',
+    PUG_PATH        = 'app/views_pug';
+
+//overrading 
+var rename = require('gulp-rename');
+var changed = require('gulp-changed');
+var __if = require('gulp-if');
+var __path = require('gulp-path')
 
 // ====================================== Gulp Task
 // Styles
@@ -80,66 +89,76 @@ gulp.task('images', function() {
 
 // Bower Files inject
 gulp.task('bower-files', function() {
+    var bowerModule = require("./bower.json");
+    var sources = bowerModule.overrides;
     return gulp.src(BOWER_PATH)
-        .pipe(mainBowerFiles({
-            overrides: {
-                jquery: {
-                    main: [
-                        './dist/jquery.min.js'
-                    ]
-                },
-                bootstrap: {
-                    main: [
-                    './dist/js/bootstrap.min.js',
-                    './dist/css/bootstrap.min.css'
-                    ]
-                }
-            }
-        }))
+        .pipe(mainBowerFiles({sources}))
         .pipe(gulp.dest(PUBLIC_PATH + '/libs'))
         .pipe(livereload());
 });
-// bower files inject to layout/app.html
-gulp.task('inject', function() {
-    var sources = gulp.src(['*/libs/**/*.js', '*/libs/**/*.css'], { read: false });
-    return gulp.src('app/views/layout/app.html')
-        .pipe(inject(sources))
-        .pipe(gulp.dest('app/views/layout/'))
+
+// ======================================= HTML
+gulp.task('pug', function() {
+    var sources = gulp.src(['public/libs/**/*.js', 'public/libs/**/*.css'], { read: false, addRootSlash: false, ignorePath: 'public/'});
+    var injectOptions = {
+        addRootSlash: false,
+        ignorePath: 'public/'
+    };
+    return gulp.src(PUG_PATH + '/layout/*.pug')
+        .pipe(plumber(function(error) {
+            console.log('Pug Task Got Error');
+            console.log(error);
+            this.emit('end');
+        }))
+        .pipe(pug({
+            pretty: true
+        }))
+        .pipe(inject(sources, injectOptions))
+        .pipe(htmlBeautify())
+        .pipe(gulp.dest('app/views/layout'))
         .pipe(livereload());
 });
 
-// HTML
 gulp.task('html', function() {
-      gulp.src(VIEWS_PATH)
+    // var beautiOptions = {
+    //     {indentSize: 2}
+    // };
+    gulp.src(VIEWS_PATH)
         .pipe(nunjucks.compile({name: ''}))
+        .pipe(htmlBeautify())
         .pipe(gulp.dest(PUBLIC_PATH))
         .pipe(livereload());
 });
+
+// gulp.task('changed', function() {
+    // return gulp.src('app/views/**/*.html')
+    //     .pipe(changed())
+    //     .pipe(gulp.dest(PUBLIC_PATH + '/**/*.html'))
+    //     .pipe(livereload());
+// });
 
 
 // Clean
 gulp.task('clean', function() {
     return del.sync([
         PUBLIC_PATH + '/*',
-        PUBLIC_PATH + '/css',
-        PUBLIC_PATH + '/js',
+        // 'app/views/layout/app.html'
     ]);
 });
 
-
-// Default
-gulp.task('default', ['clean', 'styles', 'scripts', 'images', 'bower-files', 'inject', 'html'], function() {
-	console.log('Default Starting')
-});
-
 // Watch
-gulp.task('watch', ['default'], function() {
+gulp.task('watch', function() {
 	require('./server.js');
     livereload.listen();
 	gulp.watch(SCSS_PATH, ['styles']);
     gulp.watch(SCRIPTS_PATH, ['scripts']);
     gulp.watch(IMAGES_PATH, ['images']);
     gulp.watch(BOWER_PATH, ['bower-files']);
-	gulp.watch('app/views/layout/app.html', ['inject']);
-	gulp.watch(VIEWS_PATH, ['html']);
+    gulp.watch(PUG_PATH + '/layout/*.pug', ['pug']);
+    gulp.watch(VIEWS_PATH, ['html']);
+});
+
+// Default
+gulp.task('default', ['clean', 'styles', 'scripts', 'images', 'bower-files', 'pug', 'html', 'watch'], function() {
+    console.log('Default Starting');
 });

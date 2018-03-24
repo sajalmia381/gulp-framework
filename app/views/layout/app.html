@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -7,29 +8,26 @@
     <meta name="author" content="">
     <meta name="description" content="">
     <meta name="keywords" content="">
-    <!-- Title -->
+    <!-- Title-->
     <title>{{ title }}</title>
-    <!-- Favicon -->
+    <!-- Favicon-->
     <link rel="icon" href="images/favicon.png">
-
-    <!-- inject:css -->
-    <link rel="stylesheet" href="/public/libs/bootstrap/dist/css/bootstrap.min.css">
-    <!-- endinject -->
-    
+    <!-- inject:css-->
+    <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+    <!-- endinject-->{% block header %} {% endblock %}
     <link rel="stylesheet" href="css/style.css">
-     {% block header %} {% endblock %}
 </head>
 
 <body>
     <div class="wapper">
         {% block content %} {% endblock %}
     </div>
-    <!-- inject:js -->
-    <script src="/public/libs/jquery/dist/jquery.min.js"></script>
-    <script src="/public/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- endinject -->
+    <!-- inject:js-->
+    <script src="libs/jquery/dist/jquery.min.js"></script>
+    <script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- endinject-->{% block footer %} {% endblock %}
     <script src="js/custom.js"></script>
-    {% block footer %} {% endblock %}
+    <script src="http://localhost:35729/livereload.js"></script>
 </body>
 
 </html>

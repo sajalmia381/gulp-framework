@@ -3,16 +3,19 @@
 {% set title="Twig title" %}
 
 	{% block content %}
-		<div>
-			<h2>Hello World</h2>
-			<p>This is gulp twig templates</p>
+
+	<!-- ==================================
+					banner Area
+	==================================== -->
+	{% include 'section/banner.html' %}
+
+	<section id="bg-dark">
+		<div class="comtainer">
+			<div class="row">
+				<div class="col-12 text-center" style="background: #000; padding: 20px;color:#fff;">Hello World</div>
+			</div>
 		</div>
-		<div class="img">
-			<img src="images/about.jpg" alt="">
-		</div>
-		<div class="scripts">
-			
-		</div>
+	</section>
 	{% endblock %}
 
 	{% block footer %}
