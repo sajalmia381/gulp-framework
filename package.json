@@ -9,11 +9,13 @@
   "author": "MD. SAJAL MIA",
   "license": "MIT",
   "devDependencies": {
+    "bower": "^1.8.4",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.1.0",
     "gulp-changed": "^3.2.0",
     "gulp-concat": "^2.6.1",
+    "gulp-html-beautify": "^1.0.1",
     "gulp-if": "^2.0.2",
     "gulp-imagemin": "^4.1.0",
     "gulp-inject": "^4.3.0",
@@ -29,11 +31,8 @@
     "gulp-uglify": "^3.0.0",
     "imagemin-jpeg-recompress": "^5.1.0",
     "imagemin-pngquant": "^5.0.1",
-    "main-bower-files": "^2.13.1"
-  },
-  "dependencies": {
-    "bower": "^1.8.2",
-    "gulp-html-beautify": "^1.0.1",
+    "main-bower-files": "^2.13.1",
     "static-server": "^3.0.0"
-  }
+  },
+  "dependencies": {}
 }

@@ -13,19 +13,19 @@
     <!-- Favicon-->
     <link rel="icon" href="images/favicon.png">
     <!-- inject:css-->
-    <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
-    <!-- endinject-->{% block header %} {% endblock %}
+    <!-- endinject-->{% block header %}
+    {% endblock %}
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
     <div class="wapper">
-        {% block content %} {% endblock %}
+        {% block content %}
+        {% endblock %}
     </div>
     <!-- inject:js-->
-    <script src="libs/jquery/dist/jquery.min.js"></script>
-    <script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- endinject-->{% block footer %} {% endblock %}
+    <!-- endinject-->{% block footer %}
+    {% endblock %}
     <script src="js/custom.js"></script>
     <script src="http://localhost:35729/livereload.js"></script>
 </body>
