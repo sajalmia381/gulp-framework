@@ -1,0 +1,33 @@
+.primary-color{
+    color: var(--primary-color)
+}
+.primary-color-bg {
+    background: var(--primary-color)
+}
+
+.primary-color-border{
+    border-color: var(--primary-color)!important;
+}
+.primary-color-fill{
+    fill: var(--primary-color)
+}
+.primary-color-stroke{
+    stroke: var(--primary-color)
+}
+
+// Second color
+.second-color{
+    color: var(--second-color)
+}
+.second-color-bg {
+    background: var(--second-color)
+}
+.second-color-border{
+    border-color: var(--second-color)!important;
+}
+.second-color-fill{
+    fill: var(--second-color)
+}
+.second-color-stroke{
+    stroke: var(--second-color)
+}
