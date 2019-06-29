@@ -6,6 +6,9 @@ var gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     plumber = require('gulp-plumber'),
     concat = require('gulp-concat');
+var babel = require('gulp-babel');
+var browserSync = require('browser-sync').create();
+
 // Images
 var imagemin = require('gulp-imagemin'),
     imageminPngquant = require('imagemin-pngquant'),
@@ -46,8 +49,11 @@ gulp.task('styles', function() {
             this.emit('end');
         }))
         .pipe(sourcemaps.init())
-        .pipe(autoprefixer())
-        .pipe(sass({ outputStyle: 'compressed' }))
+        .pipe(sass()) // { outputStyle: 'compressed' }
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(PUBLIC_PATH + '/css'))
         .pipe(livereload());
@@ -56,19 +62,23 @@ gulp.task('styles', function() {
 
 // Scripts
 gulp.task('scripts', function() {
-    return gulp.src(SCRIPTS_PATH)
+    return gulp.src(["app/js/custom-plugin.js", "app/js/custom.js", SCRIPTS_PATH])
         .pipe(plumber(function(error) {
             console.log('Scripts Task Got Error');
             console.log(error);
             this.emit('end');
         }))
         .pipe(sourcemaps.init())
-        .pipe(uglify())
-        // .pipe(concat('custom.js'))
+        // .pipe(uglify())
+        .pipe(babel({
+            presets: ['@babel/env']
+        }))
+        .pipe(concat('custom.js'))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(PUBLIC_PATH + '/js'))
         .pipe(livereload());
 });
+
 
 // Images
 gulp.task('images', function() {
@@ -99,7 +109,7 @@ gulp.task('bower-files', function() {
 
 // ======================================= HTML
 gulp.task('pug', function() {
-    var sources = gulp.src(['public/libs/**/*.js', 'public/libs/**/*.css'], { read: false, addRootSlash: false, ignorePath: 'public/'});
+    var sources = gulp.src(['public/libs/jquery/**/*.js', 'public/libs/bootstrap/**/*.js','public/libs/**/*.js', 'public/libs/bootstrap/**/*.css', 'public/libs/**/*.css'], { read: false, addRootSlash: false, ignorePath: 'public/'});
     var injectOptions = {
         addRootSlash: false,
         ignorePath: 'public/'
@@ -150,7 +160,7 @@ gulp.task('clean', function() {
 gulp.task('watch', function() {
 	require('./server.js');
     livereload.listen();
-	gulp.watch(SCSS_PATH, ['styles']);
+	gulp.watch('app/scss/**/*.scss', ['styles']);
     gulp.watch(SCRIPTS_PATH, ['scripts']);
     gulp.watch(IMAGES_PATH, ['images']);
     gulp.watch(BOWER_PATH, ['bower-files']);
