@@ -38,7 +38,7 @@ var POLLEXE = POLLEXE || {};
 	POLLEXE.documentOnReady = {
 		init: function() {
 			POLLEXE.initialize.init();
-
+			
 		},
 	};
 

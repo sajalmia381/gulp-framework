@@ -35,8 +35,7 @@
     "gulp-uglify": "^3.0.0",
     "imagemin-jpeg-recompress": "^5.1.0",
     "imagemin-pngquant": "^5.0.1",
-    "main-bower-files": "^2.13.1",
-    "static-server": "^3.0.0"
+    "main-bower-files": "^2.13.1"
   },
   "dependencies": {}
 }
