@@ -16,8 +16,10 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "^3.3.1",
-    "bootstrap": "^4.0.0"
+    "bootstrap": "^4.4.1",
+    "jquery": "^3.4.1",
+    "font-awesome": "^5.12.0",
+    "slick-carousel": "^1.8.1"
   },
   "overrides": {
     "jquery": {
@@ -29,6 +31,18 @@
       "main": [
         "./dist/js/bootstrap.min.js",
         "./dist/css/bootstrap.min.css"
+      ]
+    },
+    "slick-carousel": {
+      "main": [
+        "./slick/slick.min.js",
+        "./slick/slick.css"
+      ]
+    },
+    "font-awesome": {
+      "main": [
+        "./css/all.min.css",
+        "./webfonts/**/*.{eot,svg,ttf,woff,woff2}"
       ]
     }
   }

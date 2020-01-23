@@ -13,7 +13,7 @@ html
     link(rel='icon', href='images/favicon.png')
     // inject:css
     // endinject
-    | {% block header %}
+    | {% block css %}
     | {% endblock %}
     link(rel='stylesheet', href='css/style.css')
   body
@@ -22,6 +22,6 @@ html
       | {% endblock %}
     // inject:js
     // endinject
-    | {% block footer %}
+    | {% block js %}
     | {% endblock %}
     script(src='js/custom.js')

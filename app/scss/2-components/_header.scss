@@ -1,0 +1,136 @@
+header{
+    position: relative;
+    z-index: 50;
+}
+// Header Navbar Wrap
+.im-header-navbar-wrap{
+    box-shadow: 0px 8px 8px 0px rgba(0, 65, 118, 0.08);;
+    @extend .primary-color-border;
+    .header-logo{
+        padding: 5px 0;
+    }
+}
+
+.im-header-navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .user-action{
+        .action-lists{
+            display: flex;
+            align-items: center;
+            @extend .no-pmo;
+            li{
+                a{
+                    height: 45px;
+                    width: 50px;
+                    line-height: 52px;
+                    text-align: center;
+                    color: #111;
+                    position: relative;
+                    i{
+                        font-size: 21px;
+                    }
+                    .item-count{
+                        position: absolute;
+                        top: 6px;
+                        right: 9px;
+                        @extend .second-color-bg;
+                        height: 15px;
+                        width: 15px;
+                        line-height: 16px;
+                        border-radius: 50%;
+                        font-size: 9px;
+                        @extend .font-bold;
+                    }
+                    &:hover{
+                        @extend .primary-color-bg;
+                        color: $white;
+                    }
+                }
+                &::not(:first-child){
+                    border-left: 1px solid #ddd;
+                }
+            }
+        }
+    }
+}
+// =================================== Navbar Nav 
+.im-navbar-nav{
+    @extend .no-pmo;
+    z-index: 9999;
+    > li {
+        display: inline-block;
+        padding: 0 16px;
+        &.dropdown-manu{
+            position: relative;
+            > a{
+                padding-right: 19px;
+                position: relative;
+                cursor: pointer;
+                &:after{
+                    content: "\f107";
+                    font-family: "Font Awesome 5 Free";
+                    position: absolute;
+                    top: 13px;
+                    right: 0;
+                    font-weight: 900;
+                    text-decoration: inherit;
+                    font-size: 16px;
+                }
+            }
+            > .normal-submanu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 30px;
+                width: 280px;
+                max-width: 280px;
+                z-index: 99999;
+                box-shadow: 0 0 1px 0px rgba($dark, .5);
+                opacity: 0;
+                visibility: hidden;
+                transition: all .2s ease-out;
+                background: #fff;
+                > li{
+                    > a{
+                        @extend .font-20;
+                        @extend .family-2;
+                        @extend .primary-color;
+                        @extend .font-medium;
+                        padding: 8px 0;
+                        letter-spacing: .2px;
+                    }
+                }
+            }
+            &:hover{
+                > .normal-submanu{
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+        }
+        > a{
+            @extend .font-20;
+            @extend .family-2;
+            @extend .primary-color;
+            @extend .font-medium;
+            padding: 8px 0;
+            letter-spacing: .2px;
+            i{
+                @extend .font-16;
+                @extend .primary-color;
+                margin-right: 3px;
+            }
+            &:hover{
+                @extend .second-color;
+            }
+        }
+        > a:not([href]):not([tabindex]){
+            @extend .primary-color;
+            &:hover{
+                @extend .second-color;
+            }
+        }
+    }
+}

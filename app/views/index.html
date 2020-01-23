@@ -1,23 +1,24 @@
 {% extends 'layout/app.html' %}
 
-{% set title="Twig title" %}
+{% set title="Home Page" %}
 
 	{% block content %}
+	
+	<!-- ==================================
+					Header Area
+	==================================== -->
+	{% include 'base/header.html' %}
 
 	<!-- ==================================
-					banner Area
+					Banner Area
 	==================================== -->
 	{% include 'section/banner.html' %}
 
-	<section id="bg-dark">
+	<section id="bg-dark" class="mt-5">
 		<div class="comtainer">
 			<div class="row">
 				<div class="col-12 text-center second-color" style="background: #000; padding: 20px;">Hello World</div>
 			</div>
 		</div>
 	</section>
-	{% endblock %}
-
-	{% block footer %}
-		
 	{% endblock %}
