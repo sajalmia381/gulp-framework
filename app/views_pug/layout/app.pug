@@ -13,15 +13,15 @@ html
     link(rel='icon', href='images/favicon.png')
     // inject:css
     // endinject
+    link(rel='stylesheet', href='css/style.css')
     | {% block css %}
     | {% endblock %}
-    link(rel='stylesheet', href='css/style.css')
   body
-    .wapper
+    .wrapper
       | {% block content %}
       | {% endblock %}
     // inject:js
     // endinject
+    script(src='js/custom.js')
     | {% block js %}
     | {% endblock %}
-    script(src='js/custom.js')

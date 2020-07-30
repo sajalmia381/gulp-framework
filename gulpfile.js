@@ -82,16 +82,16 @@ gulp.task('scripts', function() {
 // Images
 gulp.task('images', function() {
     gulp.src(IMAGES_PATH)
-        .pipe(imagemin(
-            [
-                imagemin.gifsicle(),
-                imagemin.jpegtran(),
-                imagemin.optipng(),
-                imagemin.svgo(),
-                imageminPngquant(),
-                imageminJpegRecompress()
-            ]
-        ))
+        // .pipe(imagemin(
+        //     [
+        //         imagemin.gifsicle(),
+        //         imagemin.jpegtran(),
+        //         imagemin.optipng(),
+        //         imagemin.svgo(),
+        //         imageminPngquant(),
+        //         imageminJpegRecompress()
+        //     ]
+        // ))
         .pipe(gulp.dest(PUBLIC_PATH + '/images'))
         .pipe(browserSync.stream());
 });
