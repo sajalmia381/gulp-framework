@@ -1,4 +1,4 @@
-var gulp = require('gulp'),
+var gulp, { parallel, series, src, dest, watch } = require('gulp'),
     browserSync = require('browser-sync').create(),
     sass = require('gulp-sass'),
     uglify = require('gulp-uglify'),
@@ -40,8 +40,8 @@ var __path = require('gulp-path')
 
 // ====================================== Gulp Task
 // Styles
-gulp.task('styles', function() {
-    gulp.src(SCSS_PATH)
+function styles(cb) {
+    src(SCSS_PATH)
         .pipe(plumber(function(error) {
             console.log('Styles Task Got Error');
             console.log(error);
@@ -50,18 +50,19 @@ gulp.task('styles', function() {
         .pipe(sourcemaps.init())
         .pipe(sass()) // { outputStyle: 'compressed' }
         .pipe(autoprefixer({
-            browsers: ['last 2 versions'],
+            overrideBrowserslist: ['last 2 versions'],
             cascade: false
         }))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(PUBLIC_PATH + '/css'))
+        .pipe(dest(PUBLIC_PATH + '/css'))
         .pipe(browserSync.stream());
-});
+    cb()
+};
 
 
-// Scripts
-gulp.task('scripts', function() {
-    return gulp.src(["app/js/custom-plugin.js", "app/js/custom.js", SCRIPTS_PATH])
+// // Scripts
+function scripts(cb) {
+    return src(["app/js/custom-plugin.js", "app/js/custom.js", SCRIPTS_PATH])
         .pipe(plumber(function(error) {
             console.log('Scripts Task Got Error');
             console.log(error);
@@ -74,14 +75,15 @@ gulp.task('scripts', function() {
         }))
         .pipe(concat('custom.js'))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(PUBLIC_PATH + '/js'))
+        .pipe(dest(PUBLIC_PATH + '/js'))
         .pipe(browserSync.stream());
-});
+    cb()
+};
 
 
-// Images
-gulp.task('images', function() {
-    gulp.src(IMAGES_PATH)
+// // Images
+function images(cb) {
+    src(IMAGES_PATH)
         // .pipe(imagemin(
         //     [
         //         imagemin.gifsicle(),
@@ -92,28 +94,29 @@ gulp.task('images', function() {
         //         imageminJpegRecompress()
         //     ]
         // ))
-        .pipe(gulp.dest(PUBLIC_PATH + '/images'))
+        .pipe(dest(PUBLIC_PATH + '/images'))
         .pipe(browserSync.stream());
-});
+    cb()
+};
 
-// Bower Files inject
-gulp.task('bower-files', function() {
+// // Bower Files inject
+function bowerFiles() {
     var bowerModule = require("./bower.json");
     var sources = bowerModule.overrides;
-    return gulp.src(BOWER_PATH)
+    return src(BOWER_PATH)
         .pipe(mainBowerFiles({sources}))
-        .pipe(gulp.dest(PUBLIC_PATH + '/libs'))
+        .pipe(dest(PUBLIC_PATH + '/libs'))
         .pipe(browserSync.stream());
-});
+};
 
-// ======================================= HTML
-gulp.task('pug', function() {
-    var sources = gulp.src(['public/libs/jquery/**/*.js', 'public/libs/bootstrap/**/*.js','public/libs/**/*.js', 'public/libs/bootstrap/**/*.css', 'public/libs/**/*.css'], { read: false, addRootSlash: false, ignorePath: 'public/'});
+// // ======================================= HTML
+function pugTask() {
+    var sources = src(['public/libs/jquery/**/*.js', 'public/libs/bootstrap/**/*.js','public/libs/**/*.js', 'public/libs/bootstrap/**/*.css', 'public/libs/**/*.css'], { read: false, addRootSlash: false, ignorePath: 'public/'});
     var injectOptions = {
         addRootSlash: false,
         ignorePath: 'public/'
     };
-    return gulp.src(PUG_PATH + '/layout/*.pug')
+    return src(PUG_PATH + '/layout/*.pug')
         .pipe(plumber(function(error) {
             console.log('Pug Task Got Error');
             console.log(error);
@@ -124,39 +127,40 @@ gulp.task('pug', function() {
         }))
         .pipe(inject(sources, injectOptions))
         .pipe(htmlBeautify())
-        .pipe(gulp.dest('app/views/layout'))
+        .pipe(dest('app/views/layout'))
         .pipe(browserSync.stream());
-});
+};
 
-gulp.task('html', function() {
+function html(cb) {
     // var beautiOptions = {
     //     {indentSize: 2}
     // };
-    gulp.src(VIEWS_PATH)
+    src(VIEWS_PATH)
         .pipe(nunjucks.compile({name: ''}))
         .pipe(htmlBeautify())
-        .pipe(gulp.dest(PUBLIC_PATH))
+        .pipe(dest(PUBLIC_PATH))
         .pipe(browserSync.stream());
-});
+    cb()
+};
 
-// gulp.task('changed', function() {
-    // return gulp.src('app/views/**/*.html')
-    //     .pipe(changed())
-    //     .pipe(gulp.dest(PUBLIC_PATH + '/**/*.html'))
-    //     .pipe(browserSync.stream());
-// });
+// // gulp.task('changed', function() {
+//     // return gulp.src('app/views/**/*.html')
+//     //     .pipe(changed())
+//     //     .pipe(gulp.dest(PUBLIC_PATH + '/**/*.html'))
+//     //     .pipe(browserSync.stream());
+// // });
 
 
-// Clean
-gulp.task('clean', function() {
+// // Clean
+function clean() {
     return del.sync([
         PUBLIC_PATH + '/*',
         // 'app/views/layout/app.html'
     ]);
-});
+};
 
-// serve
-gulp.task('serve', function() {
+// // serve
+function serve(cb) {
     browserSync.init({
         "server": {
             "baseDir": PUBLIC_PATH
@@ -166,17 +170,15 @@ gulp.task('serve', function() {
             "port": 4727
         }
     });
-	gulp.watch('app/scss/**/*.scss', ['styles']);
-    gulp.watch(SCRIPTS_PATH, ['scripts']);
-    gulp.watch(IMAGES_PATH, ['images']);
-    gulp.watch(BOWER_PATH, ['bower-files']);
-    gulp.watch(PUG_PATH + '/layout/*.pug', ['pug']);
-    gulp.watch(VIEWS_PATH, ['html']);
-    gulp.watch("app/*.html").on('change', browserSync.reload)
-});
+	watch('app/scss/**/*.scss', styles);
+    watch(SCRIPTS_PATH, scripts);
+    watch(IMAGES_PATH, images);
+    watch(BOWER_PATH, bowerFiles);
+    watch(PUG_PATH + '/layout/*.pug', pugTask);
+    watch(VIEWS_PATH, html);
+    watch("app/*.html").on('change', browserSync.reload)
+    cb()
+};
 
 
-// Default
-gulp.task('default', ['clean', 'styles', 'scripts', 'images', 'bower-files', 'pug', 'html', 'serve'], function() {
-    console.log('Default Starting');
-});
+exports.default = parallel(clean, styles, scripts, images, bowerFiles, pugTask, html, serve)

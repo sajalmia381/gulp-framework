@@ -13,20 +13,20 @@
     <!-- Favicon-->
     <link rel="icon" href="images/favicon.png">
     <!-- inject:css-->
-    <!-- endinject-->{% block css %}
+    <!-- endinject-->
+    <link rel="stylesheet" href="css/style.css">{% block css %}
     {% endblock %}
-    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <div class="wapper">
+    <div class="wrapper">
         {% block content %}
         {% endblock %}
     </div>
     <!-- inject:js-->
-    <!-- endinject-->{% block js %}
+    <!-- endinject-->
+    <script src="js/custom.js"></script>{% block js %}
     {% endblock %}
-    <script src="js/custom.js"></script>
 </body>
 
 </html>

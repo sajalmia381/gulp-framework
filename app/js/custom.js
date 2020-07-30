@@ -71,3 +71,5 @@ var POLLEXE = POLLEXE || {};
 	$(window).on('scroll', POLLEXE.documentOnScroll.init);
 
 })(jQuery);
+
+console.log('working')
