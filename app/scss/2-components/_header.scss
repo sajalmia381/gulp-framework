@@ -1,135 +1,217 @@
-header{
-    position: relative;
-    z-index: 50;
-}
-// Header Navbar Wrap
-.im-header-navbar-wrap{
-    box-shadow: 0px 8px 8px 0px rgba(0, 65, 118, 0.08);;
-    @extend .primary-color-border;
-    .header-logo{
-        padding: 5px 0;
+.kl-header{
+    // position: absolute;
+    // top: 0;
+    // left: 0;
+    // right: 0;
+    // width: 100%;
+    // z-index: 50;
+    background-color: #495c7d;
+    &__row {
+        min-height: 80px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &--fixed {
+        position: fixed;
+        background-color: var(--clr-dark);
     }
 }
 
-.im-header-navbar{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    .user-action{
-        .action-lists{
-            display: flex;
-            align-items: center;
-            @extend .no-pmo;
-            li{
-                a{
-                    height: 45px;
-                    width: 50px;
-                    line-height: 52px;
-                    text-align: center;
-                    color: #111;
-                    position: relative;
-                    i{
-                        font-size: 21px;
-                    }
-                    .item-count{
-                        position: absolute;
-                        top: 6px;
-                        right: 9px;
-                        @extend .second-color-bg;
-                        height: 15px;
-                        width: 15px;
-                        line-height: 16px;
-                        border-radius: 50%;
-                        font-size: 9px;
-                        @extend .font-bold;
-                    }
-                    &:hover{
-                        @extend .primary-color-bg;
-                        color: $white;
-                    }
-                }
-                &::not(:first-child){
-                    border-left: 1px solid #ddd;
-                }
-            }
-        }
-    }
-}
-// =================================== Navbar Nav 
-.im-navbar-nav{
-    @extend .no-pmo;
-    z-index: 9999;
-    > li {
+.kl-navbar{
+    list-style-type: none;
+    &__item{
         display: inline-block;
-        padding: 0 16px;
-        &.dropdown-manu{
-            position: relative;
-            > a{
-                padding-right: 19px;
-                position: relative;
-                cursor: pointer;
-                &:after{
-                    content: "\f107";
-                    font-family: "Font Awesome 5 Free";
-                    position: absolute;
-                    top: 13px;
-                    right: 0;
-                    font-weight: 900;
-                    text-decoration: inherit;
-                    font-size: 16px;
-                }
-            }
-            > .normal-submanu {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                padding: 30px;
-                width: 280px;
-                max-width: 280px;
-                z-index: 99999;
-                box-shadow: 0 0 1px 0px rgba($dark, .5);
-                opacity: 0;
-                visibility: hidden;
-                transition: all .2s ease-out;
-                background: #fff;
-                > li{
-                    > a{
-                        @extend .font-20;
-                        @extend .family-2;
-                        @extend .primary-color;
-                        @extend .font-medium;
-                        padding: 8px 0;
-                        letter-spacing: .2px;
-                    }
-                }
-            }
+        &.dropdown-inside{
+            &.active,
             &:hover{
-                > .normal-submanu{
+                .kl-navbar-dropdown{
                     opacity: 1;
                     visibility: visible;
                 }
             }
         }
-        > a{
-            @extend .font-20;
-            @extend .family-2;
-            @extend .primary-color;
-            @extend .font-medium;
-            padding: 8px 0;
-            letter-spacing: .2px;
-            i{
-                @extend .font-16;
-                @extend .primary-color;
-                margin-right: 3px;
-            }
-            &:hover{
-                @extend .second-color;
+    }
+    &__link{
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 16px;
+        letter-spacing: .3px;
+        color: #E4EAF1;
+        padding: 33px 14px;
+        display: inline-block;
+        position: relative;
+        &::after{
+            position: absolute;
+            content: '';
+            height: 1px;
+            width: 0;
+            bottom: 25px;
+            left: 14px;
+            background-color: var(--clr-primary);
+            transition: all .3s linear;
+        }
+        &.active,
+        &:hover{
+            color: var(--clr-primary);
+            &::after{
+                width: calc(100% - 28px);
             }
         }
-        > a:not([href]):not([tabindex]){
-            @extend .primary-color;
+    }
+}
+
+.kl-navbar-dropdown{
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 410%;
+    max-width: 245px;
+    transform: translate(-50%, 0);
+    border-radius: 5px;
+    border: 2px solid #495c7d;
+    background-color: #1A2C4C;
+    transition: all .2s linear;
+    &__row{
+        padding: 16px 0;
+    }
+    &__item{
+        display: flex;
+        align-items: center;
+        padding: 14px 18px;
+        .icon{
+            width: 50px;
+            height: 48px;
+            line-height: 48px;
+            text-align: center;
+            background: #D7DCE3;
+            border-radius: 6px;
+            margin-right: 16px;
+        }
+        span{
+            display: block;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 22px;
+            color: var(--clr-light);
+            letter-spacing: .3px;
+        }
+        &.active,
+        &:hover{
+            background-color: #2b3b58;
+            font-weight: 600;
+        }
+    }
+}
+
+
+.user-action{
+    .kl-btn{
+        &:last-child{
+            margin-left: 8px;
+        }
+    }
+}
+
+// =============== Mobile menu ==============
+.kl-navbar-dropdown-mobile{
+    display: none;
+}
+.kl-mobile-menu{
+    &__container{
+        position: fixed;
+        top: 0;
+        left: -100%;
+        height: 100vh;
+        width: 100%;
+        max-width: 520px;
+        background-color: var(--clr-dark);
+        z-index: 9999;
+        padding: 0 7%;
+        display: flex;
+        flex-direction: column;
+        overflow-y: scroll;
+        transition-duration: 0.3s;
+        transition: all .6s ease-in-out;
+        transition-duration: 0.3s;
+    }
+    &__header{
+        padding: 25px 0;
+        border-bottom: 1px solid #364B74;
+    }
+    &__footer{
+        margin-top: auto;
+        margin-bottom: 40px;
+        .kl-btn{
+            padding: 7px 35px;
+        }
+    }
+    &-navbar{
+        margin-top: 20px;
+        margin-bottom: 45px;
+        &__item{
+            padding: 10px 0;
+            &.dropdown-inside{
+                .kl-mobile-menu-navbar__link{
+                    display: flex;
+                    width: 100%;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+                &.open{
+                    .kl-mobile-menu-navbar__link{
+                        svg{
+                            transform: rotate(90deg);
+                        }
+                    }
+                    
+                }
+            }
+        }
+        &__link{
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 22px;
+            letter-spacing: 0.3px;
+            color: var(--clr-light);
+            &.active,
             &:hover{
-                @extend .second-color;
+                color: var(--clr-primary);
+            }
+        }
+    }
+}
+.mask-overlay{
+    position: fixed;
+    background: rgba(0, 0, 0, 0.7);
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9000;
+}
+body{
+    &.active{
+        .kl-mobile-menu__container{
+            left: 0!important;
+        }
+    }
+}
+
+@include mq-min(1200px) {
+    .kl-navbar{
+        &__link{
+            padding: 33px 20px;
+            &:after{
+                left: 20px;
+            }
+            &.active,
+            &:hover{
+                &::after{
+                    width: calc(100% - 40px);
+                }
             }
         }
     }

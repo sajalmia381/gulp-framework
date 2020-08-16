@@ -30,7 +30,9 @@
     "bootstrap": {
       "main": [
         "./dist/js/bootstrap.min.js",
-        "./dist/css/bootstrap.min.css"
+        "./dist/js/bootstrap.min.js.map",
+        "./dist/css/bootstrap.min.css",
+        "./dist/css/bootstrap.min.css.map"
       ]
     },
     "slick-carousel": {

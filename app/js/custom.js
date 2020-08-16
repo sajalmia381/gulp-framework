@@ -1,19 +1,19 @@
-var POLLEXE = POLLEXE || {};
+var TI = TI || {};
 
 (function($) {
 	// USE STRICT
 	"use strict";
 
-	POLLEXE.initialize = {
+	TI.initialize = {
 
 		init: function() {
-			POLLEXE.initialize.general();
-			POLLEXE.initialize.mobileMenu();
-			POLLEXE.initialize.components();
+			TI.initialize.general();
+			TI.initialize.mobileMenu();
+			TI.initialize.components();
 		},
 
 		/*==================================*/
-		/*=           Reuseable Component          =*/
+		/*=     Reuseable Component        =*/
 		/*==================================*/
 		components: function() {
 
@@ -35,26 +35,26 @@ var POLLEXE = POLLEXE || {};
 		
 	};
 
-	POLLEXE.documentOnReady = {
+	TI.documentOnReady = {
 		init: function() {
-			POLLEXE.initialize.init();
+			TI.initialize.init();
 			
 		},
 	};
 
-	POLLEXE.documentOnLoad = {
+	TI.documentOnLoad = {
 		init: function() {
 			
 		},
 	};
 
-	POLLEXE.documentOnResize = {
+	TI.documentOnResize = {
 		init: function() {
 
 		},
 	};
 
-	POLLEXE.documentOnScroll = {
+	TI.documentOnScroll = {
 		init: function() {
 			if ($(this).scrollTop() > 400) {
 				$(".backtotop").fadeIn(500);
@@ -65,10 +65,10 @@ var POLLEXE = POLLEXE || {};
 	};
 
 	// Initialize Functions
-	$(document).ready(POLLEXE.documentOnReady.init);
-	$(window).on('load', POLLEXE.documentOnLoad.init);
-	$(window).on('resize', POLLEXE.documentOnResize.init);
-	$(window).on('scroll', POLLEXE.documentOnScroll.init);
+	$(document).ready(TI.documentOnReady.init);
+	$(window).on('load', TI.documentOnLoad.init);
+	$(window).on('resize', TI.documentOnResize.init);
+	$(window).on('scroll', TI.documentOnScroll.init);
 
 })(jQuery);
 
