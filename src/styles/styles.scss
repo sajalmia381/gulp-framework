@@ -1,0 +1,51 @@
+/*!
+    Theme Name: Tech Incent
+    Theme URI: https://github.com/sajalmia381/gulp-framework
+    Author: MD. SAJAL MIA
+    Author URI: https://github.com/sajalmia381
+    Description: Front-end Boilarplate
+    Version: 1.0.0
+*/
+
+/*
+--------------------------------------------------------------
+>>>                        TABLE OF CONTENTS:
+----------------------------------------------------------------
+    # Helper [ not visible in css]
+        ## Mixin
+        ## Varible
+
+    # Base
+        ## Reset
+        ## Color
+        ## Front
+        ## Extra Media Query
+        ## Extra Grid
+        ## Space
+        ## Button
+        ## Common Class
+        ## Section Element
+        ## Svg
+    # Component
+        ## Header
+        ## Banner
+    # Pages
+        ## Home
+ */
+
+
+/* ============================================ Googole Web Font ============================================= */
+@import url("https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700|Roboto:100,300,300i,400,400i,500,500i,700,700i,900|Teko:300,400,500,600,700");
+
+/* ============================================== Helper [ Not Visible in Css] =================================================== */
+@import "0-helpers/0-helpers-dir";
+
+
+/* ================================================ Base =================================================== */
+@import "1-base/1-base-dir";
+
+/* ================================================ Component ============================================== */
+@import "2-components/2-components-dir";
+
+/* ================================================ Pages ================================================== */
+@import "3-pages/3-pages-dir";

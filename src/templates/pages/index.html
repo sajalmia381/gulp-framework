@@ -1,0 +1,24 @@
+{% extends '../layout/app.html' %}
+
+{% set title="Home Page" %}
+
+	{% block content %}
+	
+	<!-- ==================================
+					Header Area
+	==================================== -->
+	{% include '../base/header.html' %}
+
+	<!-- ==================================
+					Banner Area
+	==================================== -->
+	{% include '../section/banner.html' %}
+	
+	<section id="bg-dark" class="mt-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 text-center text-white h4">Hello World</div>
+			</div>
+		</div>
+	</section>
+	{% endblock %}
