@@ -3,7 +3,7 @@
 [Techincent](https://techincent.com) static template development Tool.
 
 ## Requirements
-1. "node": ">= 8.17.0"
+1. "node": ">= 10.14.0"
 2. Bower cli
 
 ## Installation
@@ -11,7 +11,6 @@
 
 ```bash
 $ npm i
-$ bower install
 ```
 
 ## Usage
